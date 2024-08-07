@@ -1,0 +1,70 @@
+---
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Generador de Código QR</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Generador de Código QR</h1>
+      <input type="password" id="passwordInput" placeholder="Contraseña" />
+      <input type="url" id="urlInput" placeholder="URL para el QR" />
+      <button id="generateBtn">Generar QR</button>
+      <div id="qrContainer"></div>
+    </div>
+
+    <script>
+      const CORRECT_PASSWORD = 'secreta123'; // Cambia esto a la contraseña que desees
+      const API_URL = 'https://qrgeneratorbackend-production.up.railway.app/generate-qr'; // Cambia esto a la URL de tu backend en Railway
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const passwordInput = document.getElementById('passwordInput') as HTMLInputElement;
+        const urlInput = document.getElementById('urlInput') as HTMLInputElement;
+        const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement;
+        const qrContainer = document.getElementById('qrContainer') as HTMLDivElement;
+
+        if (!passwordInput || !urlInput || !generateBtn || !qrContainer) {
+          console.error('No se pudieron encontrar todos los elementos necesarios');
+          return;
+        }
+
+        generateBtn.addEventListener('click', async () => {
+          if (passwordInput.value !== CORRECT_PASSWORD) {
+            alert('Contraseña incorrecta');
+            return;
+          }
+
+          const url = urlInput.value;
+          if (!url) {
+            alert('Por favor, ingrese una URL');
+            return;
+          }
+
+          try {
+            qrContainer.textContent = 'Generando QR...';
+            const response = await fetch(`${API_URL}?url=${encodeURIComponent(url)}`);
+            if (response.ok) {
+              const blob = await response.blob();
+              const imgUrl = URL.createObjectURL(blob);
+              qrContainer.innerHTML = `<img src="${imgUrl}" alt="QR Code" />`;
+            } else {
+              qrContainer.textContent = `Error al generar el QR: ${response.status} ${response.statusText}`;
+            }
+          } catch (error) {
+            qrContainer.textContent = `Error de red: ${error instanceof Error ? error.message : 'Desconocido'}`;
+            console.error('Error:', error);
+          }
+        });
+      });
+    </script>
+
+    <style>
+      body { font-family: Arial, sans-serif; text-align: center; }
+      .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+      input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
+      #qrContainer { margin-top: 20px; }
+    </style>
+  </body>
+</html>
