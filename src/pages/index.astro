@@ -14,7 +14,7 @@
       <button id="generateBtn">Generar QR</button>
       <div id="qrContainer"></div>
       <p>Click derecho, guardar imagen como...&#128190;</p>
-      <p>Marco Jaramillo</p>
+      <p>&#169; Creado por Marco Jaramillo</p>
     </div>
 
     <script>
@@ -63,10 +63,121 @@
     </script>
 
     <style>
-      body { font-family: Arial, sans-serif; text-align: center; }
-      .container { max-width: 500px; margin: 0 auto; padding: 20px; }
-      input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
-      #qrContainer { margin-top: 20px; }
+     :root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5a623;
+  --background-color: #f0f4f8;
+  --text-color: #333;
+  --input-background: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-size: 28px;
+  text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+input[type="password"],
+input[type="url"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--input-background);
+  box-shadow: inset 0 2px 4px var(--shadow-color);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+input[type="password"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+button:hover {
+  background-color: #3a7bc8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px var(--shadow-color);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+#qrContainer {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 10px;
+ 
+  display: inline-block;
+}
+
+p {
+  color: var(--text-color);
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+p:last-child {
+  font-style: italic;
+  color: #888;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  input[type="password"],
+  input[type="url"],
+  button {
+    font-size: 14px;
+  }
+}
     </style>
   </body>
 </html>
